@@ -1,5 +1,4 @@
-let reportPDF;
-
+// Lista de productos con sus unidades
 const products = [
     { name: "Salami Ahumado", unit: "Unidad" },
     { name: "Pizza Cheese Rallado 20 lbs", unit: "Libra" },
@@ -133,9 +132,11 @@ const products = [
     { name: "Marcadores", unit: "Unidad" }
 ];
 
+// Función que se ejecuta cuando se carga la página
 window.onload = function() {
     const productForm = document.getElementById('product-form');
 
+    // Crear un formulario dinámico para cada producto
     products.forEach((product, index) => {
         const productDiv = document.createElement('div');
         productDiv.className = 'product';
@@ -144,6 +145,7 @@ window.onload = function() {
         productTitle.textContent = product.name;
         productDiv.appendChild(productTitle);
 
+        // Etiqueta y campo para la presentación del producto
         const labelPresentation = document.createElement('label');
         labelPresentation.setAttribute('for', `presentation${index + 1}`);
         labelPresentation.textContent = 'Presentación:';
@@ -155,6 +157,7 @@ window.onload = function() {
         inputPresentation.placeholder = 'Ej. Caja (24 unidades) / Botella (500 ml)';
         productDiv.appendChild(inputPresentation);
 
+        // Etiqueta y campo para la cantidad utilizada por semana
         const labelQuantity = document.createElement('label');
         labelQuantity.setAttribute('for', `quantity${index + 1}`);
         labelQuantity.textContent = 'Cantidad utilizada por semana:';
@@ -165,6 +168,7 @@ window.onload = function() {
         inputQuantity.id = `quantity${index + 1}`;
         productDiv.appendChild(inputQuantity);
 
+        // Contenedor para el checkbox de "no utilizado"
         const checkboxContainer = document.createElement('div');
         checkboxContainer.className = 'checkbox-container';
 
@@ -181,10 +185,12 @@ window.onload = function() {
 
         productDiv.appendChild(checkboxContainer);
 
+        // Agregar el contenedor del producto al formulario
         productForm.appendChild(productDiv);
     });
 };
 
+// Función para habilitar/deshabilitar campos según el estado del checkbox
 function toggleProductFields(productNumber) {
     const notUsedCheckbox = document.getElementById(`not-used${productNumber}`);
     const presentationField = document.getElementById(`presentation${productNumber}`);
@@ -202,6 +208,7 @@ function toggleProductFields(productNumber) {
     }
 }
 
+// Función para generar el reporte en PDF
 function generateReport() {
     const { jsPDF } = window.jspdf;
 
@@ -210,21 +217,26 @@ function generateReport() {
 
     const doc = new jsPDF();
 
+    // Obtener la sucursal seleccionada
+    const branch = document.getElementById('branch-select').value;
     doc.setFontSize(16);
-    doc.text("Reporte de Productos", 10, 10);
+    doc.text(`Reporte Semanal de Productos Consumidos Pizzería - ${branch}`, 10, 10);
     doc.setFontSize(12);
 
+    // Encabezados de la tabla
     let tableData = [
         ["Producto", "Presentación", "Cantidad utilizada por semana"]
     ];
 
     let isValid = true;
 
+    // Recorrer los productos y agregar filas a la tabla
     products.forEach((product, index) => {
         const presentation = document.getElementById(`presentation${index + 1}`);
         const quantity = document.getElementById(`quantity${index + 1}`);
         const notUsed = document.getElementById(`not-used${index + 1}`).checked;
 
+        // Validar que los campos no estén vacíos si el producto se utiliza
         if (!notUsed && !presentation.value.trim()) {
             presentation.classList.add('error');
             isValid = false;
@@ -239,6 +251,7 @@ function generateReport() {
             quantity.classList.remove('error');
         }
 
+        // Agregar datos a la tabla
         if (notUsed) {
             tableData.push([product.name, "Este producto no se utiliza", "-"]);
         } else {
@@ -246,11 +259,13 @@ function generateReport() {
         }
     });
 
+    // Mostrar mensaje de error si hay campos vacíos
     if (!isValid) {
         errorMessage.textContent = "Por favor, completa todos los campos requeridos.";
         return;
     }
 
+    // Generar la tabla en el PDF
     doc.autoTable({
         head: [tableData[0]],
         body: tableData.slice(1),
@@ -273,6 +288,7 @@ function generateReport() {
     reportPDF = doc;
 }
 
+// Función para descargar el reporte en PDF
 function downloadReport() {
     if (!reportPDF) {
         generateReport();
@@ -280,6 +296,7 @@ function downloadReport() {
     reportPDF.save("reporte_productos.pdf");
 }
 
+// Función para compartir el reporte en PDF
 function shareReport() {
     if (!reportPDF) {
         generateReport();
@@ -289,6 +306,7 @@ function shareReport() {
         type: "application/pdf"
     });
 
+    // Verificar si el navegador soporta la función de compartir archivos
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
             title: 'Reporte de Productos',

@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte Semanal de Productos Consumidos Pizzería</title>
+    <!-- Incluye una hoja de estilos externa -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Título principal de la página -->
     <h1>Reporte Semanal de Productos Consumidos Pizzería</h1>
 
+    <!-- Selector para elegir la sucursal -->
     <label for="branch-select">Seleccione la sucursal:</label>
     <select id="branch-select">
         <option value="JALAPA">JALAPA</option>
@@ -19,15 +22,20 @@
         <option value="PINULA">PINULA</option>
     </select>
 
+    <!-- Contenedor donde se generará el formulario de productos -->
     <div id="product-form"></div>
 
+    <!-- Botones para descargar y compartir el reporte -->
     <button onclick="downloadReport()">Descargar Reporte</button>
     <button onclick="shareReport()">Compartir Reporte</button>
 
+    <!-- Mensaje de error -->
     <p id="error-message" class="error-message"></p>
 
+    <!-- Scripts externos necesarios para generar el PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <!-- Script principal de la página -->
     <script src="script.js"></script>
 </body>
 </html>
