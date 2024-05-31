@@ -130,28 +130,39 @@ window.onload = function() {
         productTitle.textContent = product.name;
         productDiv.appendChild(productTitle);
 
+        const inputContainer = document.createElement('div');
+        inputContainer.className = 'input-container';
+
         // Etiqueta y campo para la presentación del producto
+        const presentationDiv = document.createElement('div');
         const labelPresentation = document.createElement('label');
         labelPresentation.setAttribute('for', `presentation${index + 1}`);
         labelPresentation.textContent = 'Presentación:';
-        productDiv.appendChild(labelPresentation);
+        presentationDiv.appendChild(labelPresentation);
 
         const inputPresentation = document.createElement('input');
         inputPresentation.type = 'text';
         inputPresentation.id = `presentation${index + 1}`;
         inputPresentation.placeholder = 'Ej. Caja (24 unidades) / Botella (500 ml)';
-        productDiv.appendChild(inputPresentation);
+        presentationDiv.appendChild(inputPresentation);
 
-        // Etiqueta y campo para la cantidad utilizada por semana
+        inputContainer.appendChild(presentationDiv);
+
+        // Etiqueta y campo para la cantidad utilizada
+        const quantityDiv = document.createElement('div');
         const labelQuantity = document.createElement('label');
         labelQuantity.setAttribute('for', `quantity${index + 1}`);
-        labelQuantity.textContent = 'Cantidad utilizada por semana:';
-        productDiv.appendChild(labelQuantity);
+        labelQuantity.textContent = 'Cantidad utilizada:';
+        quantityDiv.appendChild(labelQuantity);
 
         const inputQuantity = document.createElement('input');
         inputQuantity.type = 'number';
         inputQuantity.id = `quantity${index + 1}`;
-        productDiv.appendChild(inputQuantity);
+        quantityDiv.appendChild(inputQuantity);
+
+        inputContainer.appendChild(quantityDiv);
+
+        productDiv.appendChild(inputContainer);
 
         // Contenedor para el checkbox de "no utilizado"
         const checkboxContainer = document.createElement('div');
@@ -210,7 +221,7 @@ function generateReport() {
 
     // Encabezados de la tabla
     let tableData = [
-        ["Producto", "Presentación", "Cantidad utilizada por semana", "Categoría"]
+        ["Producto", "Presentación", "Cantidad utilizada", "Categoría"]
     ];
 
     let isValid = true;

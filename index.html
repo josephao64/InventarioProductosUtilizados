@@ -5,6 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte Semanal de Productos Consumidos Pizzería</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .example-section {
+            background-color: #b0c4de; /* Stronger color */
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .instructions-section {
+            background-color: #f8f9fa; /* Light gray color */
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .product {
+            margin-bottom: 20px;
+        }
+        .product h3 {
+            margin-bottom: 10px;
+        }
+        .product label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .product .input-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .product .input-container > div {
+            width: 48%;
+        }
+        .product .input-container input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>CONSUMO PRODUCTOS SEMANALES PIZZERIA</h1>
@@ -19,7 +64,75 @@
         <option value="PINULA">PINULA</option>
     </select>
 
-    <div id="product-form"></div>
+    <h2>Instrucciones</h2>
+    <div id="instructions" class="instructions-section">
+        <ul>
+            <li>Especificar la presentación.</li>
+            <li>Especificar las unidades de paquetes. Ejemplo: Caja (24 unidades), Paquete (12 botellas).</li>
+            <li>Especificar la medida de unidades. Ejemplo: Bote de salsa 300ml, Desinfectante 500ml, etc.</li>
+            <li>Agregar cantidad de producto que se utiliza a la semana.</li>
+        </ul>
+    </div>
+
+    <h2>Ejemplo de cómo llenar los campos</h2>
+    <div id="example-form" class="example-section">
+        <div class="product">
+            <h3>PRODUCTOEJEMPLO1: Ketchup</h3>
+            <div class="input-container">
+                <div>
+                    <label for="presentation1">Presentación:</label>
+                    <input type="text" id="presentation1" placeholder="Ej. Caja (24 unidades) / Botella (500 ml)" value="Unidad (200ml)" readonly>
+                </div>
+                <div>
+                    <label for="quantity1">Cantidad utilizada:</label>
+                    <input type="number" id="quantity1" value="10" readonly>
+                </div>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="not-used1" onchange="toggleProductFields(1)" disabled>
+                <label for="not-used1">Seleccione si no utiliza el producto</label>
+            </div>
+        </div>
+        <div class="product">
+            <h3>PRODUCTOEJEMPLO2: Pizza Cheese Rallado 20 lbs</h3>
+            <div class="input-container">
+                <div>
+                    <label for="presentation2">Presentación:</label>
+                    <input type="text" id="presentation2" placeholder="Ej. Caja (24 unidades) / Botella (500 ml)" value="Libra" readonly>
+                </div>
+                <div>
+                    <label for="quantity2">Cantidad utilizada:</label>
+                    <input type="number" id="quantity2" value="5" readonly>
+                </div>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="not-used2" onchange="toggleProductFields(2)" disabled>
+                <label for="not-used2">Seleccione si no utiliza el producto</label>
+            </div>
+        </div>
+        <div class="product">
+            <h3>PRODUCTOEJEMPLO3: Caja Pizza</h3>
+            <div class="input-container">
+                <div>
+                    <label for="presentation3">Presentación:</label>
+                    <input type="text" id="presentation3" placeholder="Ej. Caja (24 unidades) / Botella (500 ml)" value="Caja (50 unidades)" readonly>
+                </div>
+                <div>
+                    <label for="quantity3">Cantidad utilizada:</label>
+                    <input type="number" id="quantity3" value="3" readonly>
+                </div>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="not-used3" onchange="toggleProductFields(3)" disabled>
+                <label for="not-used3">Seleccione si no utiliza el producto</label>
+            </div>
+        </div>
+    </div>
+
+    <h2>Formulario de Productos</h2>
+    <div id="product-form">
+        <!-- Rest of the product form will go here -->
+    </div>
 
     <button onclick="downloadReport()">Descargar Reporte</button>
     <button onclick="shareReport()">Compartir Reporte</button>

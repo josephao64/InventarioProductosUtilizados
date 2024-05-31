@@ -21,13 +21,42 @@ h1 {
 
 label {
     display: block;
-    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 input[type="text"], input[type="number"] {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.example-section {
+    background-color: #b0c4de; /* Stronger color */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.instructions-section {
+    background-color: #f8f9fa; /* Light gray color */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.product .input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.product .input-container > div {
+    width: 48%;
+}
+
+.product .input-container input {
+    width: 100%;
+    padding: 8px;
     box-sizing: border-box;
 }
 
